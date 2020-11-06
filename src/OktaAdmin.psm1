@@ -56,7 +56,7 @@ function Get-OktaApps {
         [Parameter(Mandatory = $false)]
         [string]$q
     )
-    Invoke-PagedMethod "v1/apps?filter=$filter&limit=$limit&expand=$expand&q=$q"
+    Invoke-OktaApi -Uri "v1/apps?filter=$filter&limit=$limit&expand=$expand&q=$q" -Method GET
 }
 
 function Add-OktaAppUser {
@@ -91,7 +91,7 @@ function Get-OktaAppUsers {
         [Parameter(Mandatory = $false)]
         [string]$q
     )
-    Invoke-PagedMethod "v1/apps/$appid/users?limit=$limit&q=$q"
+    Invoke-OktaApi -Uri "v1/apps/$appid/users?limit=$limit&q=$q" -Method GET
 }
 
 function Set-OktaAppUser {
@@ -141,7 +141,7 @@ function Get-OktaAppGroups {
         [Parameter(Mandatory = $false)]
         [int]$limit = 20
     )
-    Invoke-PagedMethod "v1/apps/$appid/groups?limit=$limit"
+    Invoke-OktaApi -Uri "v1/apps/$appid/groups?limit=$limit" -Method GET
 }
 
 function Remove-OktaAppGroup {
@@ -166,15 +166,9 @@ function Get-OktaEvents {
         [Parameter(Mandatory = $false)]
         [string]$filter,
         [Parameter(Mandatory = $false)]
-        [int]$limit = 1000,
-        [Parameter(Mandatory = $false)]
-        [boolean]$paged = $false
+        [int]$limit = 1000
     )
-    if ($paged) {
-        Invoke-PagedMethod "v1/events?startDate=$startDate&filter=$filter&limit=$limit"
-    } else {
-        Invoke-OktaApi -Uri "v1/events?startDate=$startDate&filter=$filter&limit=$limit" -Method GET
-    }
+    Invoke-OktaApi -Uri "v1/events?startDate=$startDate&filter=$filter&limit=$limit" -Method GET
 }
 #endregion
 
@@ -284,15 +278,9 @@ function Get-OktaGroups {
         [Parameter(Mandatory = $false)]
         [string]$filter,
         [Parameter(Mandatory = $false)]
-        [int]$limit = 200,
-        [Parameter(Mandatory = $false)]
-        [string]$paged = $false
+        [int]$limit = 200
     )
-    if ($paged) {
-        Invoke-PagedMethod "v1/groups?q=$q&filter=$filter&limit=$limit"
-    } else {
-        Invoke-OktaApi -Uri "v1/groups?q=$q&filter=$filter&limit=$limit" -Method GET
-    }
+    Invoke-OktaApi -Uri "v1/groups?q=$q&filter=$filter&limit=$limit" -Method GET
 }
 
 function Remove-OktaGroup {
@@ -310,15 +298,9 @@ function Get-OktaGroupMember {
         [Parameter(Mandatory = $true)]
         [string]$id,
         [Parameter(Mandatory = $false)]
-        [int]$limit = 200,
-        [Parameter(Mandatory = $false)]
-        [string]$paged = $false
+        [int]$limit = 200
     )
-    if ($paged) {
-        Invoke-PagedMethod "v1/groups/$id/users?limit=$limit"
-    } else {
-        Invoke-OktaApi -Uri "v1/groups/$id/users?limit=$limit" -Method GET
-    }
+     Invoke-OktaApi -Uri "v1/groups/$id/users?limit=$limit" -Method GET
 }
 
 function Get-OktaGroupApps {
@@ -329,7 +311,7 @@ function Get-OktaGroupApps {
         [Parameter(Mandatory = $false)]
         [int]$limit = 20
     )
-    Invoke-PagedMethod "v1/groups/$id/apps?limit=$limit"
+    Invoke-OktaApi -Uri "v1/groups/$id/apps?limit=$limit" -Method GET
 }
 
 function Get-OktaGroupRules {
@@ -338,7 +320,7 @@ function Get-OktaGroupRules {
         [Parameter(Mandatory = $false)]
         [int]$limit = 50
     )
-    Invoke-PagedMethod "v1/groups/rules?limit=$limit"
+    Invoke-OktaApi -Uri "v1/groups/rules?limit=$limit" -Method
 }
 
 function Enable-OktaGroupRule {
@@ -385,7 +367,7 @@ function Get-OktaIdps {
         [Parameter(Mandatory = $false)]
         [int]$limit = 20
     )
-    Invoke-PagedMethod "v1/idps?q=$q&type=$type&limit=$limit"
+    Invoke-OktaApi -Uri "v1/idps?q=$q&type=$type&limit=$limit" -Method GET
 }
 #endregion
 
@@ -405,11 +387,9 @@ function Get-OktaLogs {
         [Parameter(Mandatory = $false)]
         [string]$sortOrder = "ASCENDING",
         [Parameter(Mandatory = $false)]
-        [int]$limit = 100,
-        [Parameter(Mandatory = $false)]
-        [boolean]$convert = $true
+        [int]$limit = 100
     )
-    Invoke-PagedMethod "v1/logs?since=$since&until=$until&filter=$filter&q=$q&sortOrder=$sortOrder&limit=$limit" $convert
+    Invoke-OktaApi -Uri "v1/logs?since=$since&until=$until&filter=$filter&q=$q&sortOrder=$sortOrder&limit=$limit" -Method GET
 }
 #endregion
 
@@ -477,7 +457,7 @@ function Get-OktaUsers {
         [Parameter(Mandatory = $false)]
         [string]$search
     )
-    Invoke-PagedMethod "v1/users?q=$q&filter=$filter&limit=$limit&search=$search"
+    Invoke-OktaApi -Uri "v1/users?q=$q&filter=$filter&limit=$limit&search=$search" -Method GET
 }
 
 function Set-OktaUser {
@@ -507,15 +487,9 @@ function Get-OktaUserGroups {
         [Parameter(Mandatory = $true)]
         [string]$id,
         [Parameter(Mandatory = $false)]
-        [int]$limit = 200,
-        [Parameter(Mandatory = $true)]
-        [boolean]$paged = $false
+        [int]$limit = 200
     )
-    if ($paged) {
-        Invoke-PagedMethod "v1/users/$id/groups?limit=$limit"
-    } else {
-        Invoke-OktaApi -Uri "v1/users/$id/groups?limit=$limit" -Method GET
-    }
+    Invoke-OktaApi -Uri "v1/users/$id/groups?limit=$limit" -Method GET
 }
 
 function Enable-OktaUser {
@@ -605,7 +579,7 @@ function Get-OktaZones {
         [Parameter(Mandatory = $false)]
         [int]$limit = 20
     )
-    Invoke-PagedMethod "v1/zones?filter=$filter&limit=$limit"
+    Invoke-OktaApi -Uri "v1/zones?filter=$filter&limit=$limit" -Method GET
 }
 #endregion
 
@@ -621,10 +595,7 @@ function Invoke-OktaApi {
         [Parameter(Mandatory = $false)]
         [string]$Body
     )
-    $Output = [PSCustomObject]@{
-        Objects = @()
-        Metadata = @{}
-    }
+    $Output = @()
 
     if (!$OktaApiToken -or !$OktaTenant) {
         throw "Okta connection information not found. Please run Connect-Okta before running this cmdlet."
@@ -657,46 +628,31 @@ function Invoke-OktaApi {
     if ($Body) {
         $RestSplat += @{ $Body = (ConvertTo-Json -InputObject $Body -Compress -Depth 100) }
     }
-    
+
     $SecurityProtocolBackup = [Net.ServicePointManager]::SecurityProtocol
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    $Response = Invoke-RestMethod @RestSplat
-    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocolBackup
+    do {
+        $Response = Invoke-RestMethod @RestSplat
 
-    if ($Response) {
-        $Output.Objects += $Response
-    }
-    $Output.Metadata += @{
-        ApiLimit = $ResponseHeaders.'X-Rate-Limit-Limit'
-        ApiLimitRemaining = $ResponseHeaders.'X-Rate-Limit-Remaining'
-        ApiLimitResetTime = $ResponseHeaders.'X-Rate-Limit-Reset'
-    }
+        $Output += $Response
 
-    $Links = @{}
-    if ($ResponseHeaders.Link) {
-        foreach ($Header in $ResponseHeaders.Link.split(",")) {
-            if ($Header -match '<(.*)>; rel="(.*)"') {
-                $Links[$Matches[2]] = $Matches[1]
+        $ApiLimit = $ResponseHeaders.'X-Rate-Limit-Limit'
+        $ApiLimitRemaining = $ResponseHeaders.'X-Rate-Limit-Remaining'
+        $ApiLimitResetTime = $ResponseHeaders.'X-Rate-Limit-Reset'
+
+        $Links = @{}
+        if ($ResponseHeaders.Link) {
+            foreach ($Header in $ResponseHeaders.Link.split(",")) {
+                if ($Header -match '<(.*)>; rel="(.*)"') {
+                    $Links[$Matches[2]] = $Matches[1]
+                }
             }
         }
-        $Output.Metadata += @{
-            NextUri = $Links.next
+        if ($Links.next) {
+            $RestSplat.Uri = $Links.next
         }
-    }
-
-    $Output
-}
-
-function Invoke-PagedMethod($Url) {
-    $Output = [PSCustomObject]@{
-        Objects = @()
-    }
-    do {
-        $response = Invoke-OktaApi -Uri $Url -Method GET
-
-        $Output.Objects += $Response.Objects
-        $Url = $Response.Metadata.NextUri
-    } while ($Url)
+    } while ($Links.next)
+    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocolBackup
 
     $Output
 }
