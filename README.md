@@ -80,4 +80,5 @@ This project is licensed under The MIT License - see [LICENSE](LICENSE) for deta
 ## Acknowledgements
 
 [gabrielsroka](https://github.com/gabrielsroka/OktaAPI.psm1) - OktaAdmin began its life as a fork of gabrielsroka's OktaAPI, and the author wishes to give acknowledgement and thanks.
+
 [mbegan](https://github.com/mbegan/Okta-PSModule) - As OktaAPI extended from mbegan's Okta-PSModule, the author would also like to give acknowledgement and thanks.
