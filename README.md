@@ -4,7 +4,7 @@ A PowerShell module to simplify Okta Admin tasks. Designed to be similar to Acti
 
 ## Getting Started
 
-PoshEmail is compatible with Windows PowerShell 5.1+ and PowerShell 6.0+ on Windows/Linux/macOS.
+OktaAdmin is compatible with Windows PowerShell 5.1+ and PowerShell 6.0+ on Windows/Linux/macOS.
 
 ### Prerequisites
 
