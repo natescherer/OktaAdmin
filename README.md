@@ -1,5 +1,7 @@
 # OktaAdmin
 
+**NOTE: This module was never completed and I no longer work with Okta in my day-to-day. If anyone would like to take this over, please open an Issue.**
+
 A PowerShell module to simplify tasks for Okta admins. Designed to be similar to Active Directory/Azure PowerShell cmdlets.
 
 This module is unofficial and is neither developed nor supported by Okta.
